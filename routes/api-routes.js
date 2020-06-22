@@ -1,3 +1,5 @@
+var nodemailer = require('nodemailer');
+const crypto=require('crypto');
 // Requiring our models and passport as we've configured it
 var db = require("../models");
 var passport = require("../config/passport");
@@ -43,7 +45,7 @@ module.exports = function(app) {
         });
 
         const mailOptions = {
-          from: 'block11@gmail.com',
+          from: 'venkatasindhu.kandula@gmail.com',
           to: `${user.email}`,
           subject: 'Link To Reset Password',
           text:
@@ -85,6 +87,9 @@ module.exports = function(app) {
     });
   });
 //
+
+const token= crypto.randomBytes(12).toString('hex');
+
 app.put('/updatePasswordViaEmail', (req, res) => {
   User.findOne({
     where: {
